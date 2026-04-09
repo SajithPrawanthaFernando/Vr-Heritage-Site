@@ -100,7 +100,7 @@ export default function CustomCharacters() {
                   loop
                   playsInline
                 >
-                  <source src="/monk.mp4" type="video/mp4" />
+                  <source src="/Vr-Heritage-Site/monk.mp4" type="video/mp4" />
                 </video>
               </div>
               <div className="space-y-3">
@@ -125,7 +125,10 @@ export default function CustomCharacters() {
                   loop
                   playsInline
                 >
-                  <source src="/galleman.mp4" type="video/mp4" />
+                  <source
+                    src="/Vr-Heritage-Site/galleman.mp4"
+                    type="video/mp4"
+                  />
                 </video>
               </div>
               <div className="space-y-3">
