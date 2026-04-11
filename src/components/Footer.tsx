@@ -23,7 +23,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-h-gold rounded flex items-center justify-center text-h-slate font-bold shadow-lg shadow-h-gold/20">
                 H
               </div>
-              <span className="font-heritage text-xl tracking-tight text-white">
+              <span className="font-heritage text-xl tracking-tight dark:text-white text-black">
                 HERITAGE
               </span>
             </div>

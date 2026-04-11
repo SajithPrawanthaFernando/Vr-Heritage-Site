@@ -39,7 +39,7 @@ export default function VRExperience() {
   return (
     <section
       ref={container}
-      className="py-24 bg-h-ivory text-h-slate overflow-hidden"
+      className="py-24 dark:bg-[#0a0a0a] bg-white text-h-slate overflow-hidden"
     >
       <div className="container mx-auto px-6">
         {/* Header Content */}
@@ -72,7 +72,7 @@ export default function VRExperience() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-h-slate/80 via-transparent to-transparent" />
 
-            <div className="absolute bottom-10 left-10 text-h-ivory">
+            <div className="absolute bottom-10 left-10 text-white ">
               <h3 className="text-3xl font-heritage mb-2">
                 Cinematic Fidelity
               </h3>

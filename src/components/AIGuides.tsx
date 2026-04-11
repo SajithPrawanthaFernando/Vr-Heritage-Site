@@ -62,7 +62,7 @@ export default function AIGuides() {
                 className="w-full h-full object-cover opacity-80"
               />
               {/* Overlay: Interactive Dialogue UI */}
-              <div className="absolute bottom-8 left-8 right-8 bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10">
+              <div className="absolute bottom-8 left-8 right-8 text-white bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-[10px] uppercase tracking-widest font-bold text-h-gold">

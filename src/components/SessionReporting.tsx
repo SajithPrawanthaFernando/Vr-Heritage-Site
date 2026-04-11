@@ -12,7 +12,6 @@ export default function SessionReporting() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Slide in the "Report Preview" from the bottom
       gsap.from(".report-preview", {
         scrollTrigger: {
           trigger: container.current,
@@ -30,9 +29,9 @@ export default function SessionReporting() {
   return (
     <section
       ref={container}
-      className="py-24 bg-h-slate text-h-ivory relative overflow-hidden"
+      className="py-24 bg-white dark:bg-[#0a0a0a] transition-colors duration-300 relative overflow-hidden"
     >
-      {/* Decorative radial gradient for depth */}
+      {/* Decorative radial gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05)_0%,_transparent_70%)]" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -44,12 +43,12 @@ export default function SessionReporting() {
               Personalized Chronicles
             </div>
 
-            <h2 className="text-4xl md:text-6xl font-heritage leading-tight text-white">
+            <h2 className="text-4xl md:text-6xl font-heritage leading-tight text-slate-900 dark:text-white">
               A Journey Worth{" "}
               <span className="text-h-gold italic">Remembering.</span>
             </h2>
 
-            <p className="text-lg text-h-ivory/60 leading-relaxed">
+            <p className="text-lg text-slate-600 dark:text-white/50 leading-relaxed">
               Every step you take through history is preserved. Our platform
               automatically transforms your physical exploration into a
               personalized digital timeline, ensuring your discoveries remain
@@ -62,10 +61,10 @@ export default function SessionReporting() {
                   <Award size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold mb-1 text-white">
+                  <h4 className="font-bold mb-1 text-slate-900 dark:text-white">
                     Experience Verified
                   </h4>
-                  <p className="text-xs opacity-50">
+                  <p className="text-xs text-slate-500 dark:text-white/50">
                     Get an authenticated record of the historical insights
                     uncovered during your unique journey.
                   </p>
@@ -76,8 +75,10 @@ export default function SessionReporting() {
                   <Share2 size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold mb-1 text-white">Instant Sharing</h4>
-                  <p className="text-xs opacity-50">
+                  <h4 className="font-bold mb-1 text-slate-900 dark:text-white">
+                    Instant Sharing
+                  </h4>
+                  <p className="text-xs text-slate-500 dark:text-white/50">
                     Export your time-travel highlights directly to social
                     platforms to show the world your discoveries.
                   </p>
@@ -85,7 +86,7 @@ export default function SessionReporting() {
               </div>
             </div>
 
-            <button className="flex items-center gap-3 px-8 py-4 border border-h-gold text-h-gold font-bold rounded-full hover:bg-h-gold hover:text-h-slate transition-all group shadow-lg">
+            <button className="flex items-center gap-3 px-8 py-4 border border-h-gold text-h-gold font-bold rounded-full hover:bg-h-gold hover:text-white dark:hover:text-h-slate transition-all group shadow-lg">
               View Sample Report{" "}
               <Download
                 size={18}
@@ -96,8 +97,8 @@ export default function SessionReporting() {
 
           {/* Right: The "Digital Report" UI Mockup */}
           <div className="report-preview relative">
-            <div className="bg-h-ivory rounded-3xl p-8 text-h-slate shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform lg:rotate-3 transition-transform hover:rotate-0 duration-500">
-              <div className="flex justify-between items-start mb-8 border-b pb-4 border-h-slate/10">
+            <div className="bg-h-ivory dark:bg-[#111111] rounded-3xl p-8 text-h-slate dark:text-white border border-transparent dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform lg:rotate-3 transition-transform hover:rotate-0 duration-500">
+              <div className="flex justify-between items-start mb-8 border-b pb-4 border-h-slate/10 dark:border-white/10">
                 <div>
                   <h3 className="font-heritage text-2xl">Session Summary</h3>
                   <p className="text-[10px] uppercase tracking-widest opacity-40">
@@ -111,7 +112,7 @@ export default function SessionReporting() {
 
               <div className="space-y-6">
                 <div className="relative pl-6 border-l-2 border-h-gold/30">
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-h-gold border-4 border-h-ivory" />
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-h-gold border-4 border-h-ivory dark:border-[#111111]" />
                   <p className="text-xs font-bold text-h-gold uppercase tracking-tighter">
                     10:15 AM • Galle Fort
                   </p>
@@ -122,7 +123,7 @@ export default function SessionReporting() {
                 </div>
 
                 <div className="relative pl-6 border-l-2 border-h-gold/30">
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-h-gold border-4 border-h-ivory" />
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-h-gold border-4 border-h-ivory dark:border-[#111111]" />
                   <p className="text-xs font-bold text-h-gold uppercase tracking-tighter">
                     10:45 AM • Interaction
                   </p>
@@ -133,7 +134,7 @@ export default function SessionReporting() {
                 </div>
 
                 <div className="mt-8 p-4 bg-h-gold/5 rounded-xl border border-h-gold/10">
-                  <p className="text-xs italic text-h-slate/60 leading-relaxed">
+                  <p className="text-xs italic text-slate-600 dark:text-white/60 leading-relaxed">
                     "Your journey focused on colonial trade routes. We've
                     attached supplementary archival imagery of the harbor
                     activity from 1650 for your collection."

@@ -35,7 +35,7 @@ export default function TemporalGallery() {
 
   return (
     <section
-      className="py-24 bg-h-slate text-white overflow-hidden"
+      className="py-24 bg-white dark:bg-[#0a0a0a] transition-colors duration-300 overflow-hidden"
       id="vr-experience"
     >
       <div className="container mx-auto px-6">
@@ -46,13 +46,13 @@ export default function TemporalGallery() {
               <History size={16} />
               Temporal Comparison
             </div>
-            <h2 className="text-4xl md:text-5xl font-heritage leading-tight">
+            <h2 className="text-4xl md:text-5xl font-heritage leading-tight text-slate-900 dark:text-white">
               One World. <span className="italic text-h-gold">Two Eras.</span>
             </h2>
           </div>
 
           {/* Location Switcher */}
-          <div className="flex gap-4 p-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm">
+          <div className="flex gap-4 p-2 bg-black dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 backdrop-blur-sm">
             {LOCATIONS.map((loc) => (
               <button
                 key={loc.id}
@@ -62,14 +62,14 @@ export default function TemporalGallery() {
                 }}
                 className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 relative ${
                   activeLoc.id === loc.id
-                    ? "text-h-slate"
-                    : "text-white/60 hover:text-h-gold"
+                    ? "text-white dark:text-h-slate"
+                    : "text-slate-500 dark:text-white/60 hover:text-h-gold"
                 }`}
               >
                 {activeLoc.id === loc.id && (
                   <motion.div
                     layoutId="activeLocBg"
-                    className="absolute inset-0 bg-h-gold rounded-full -z-10 shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                    className="absolute inset-0 bg-h-gold rounded-full -z-10 shadow-lg"
                   />
                 )}
                 {loc.title}
@@ -81,7 +81,7 @@ export default function TemporalGallery() {
         {/* Comparison Display */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-8 relative group">
-            <div className="relative aspect-video rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl bg-black">
+            <div className="relative aspect-video rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl bg-black">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={`${activeLoc.id}-${showPast}`}
@@ -112,22 +112,18 @@ export default function TemporalGallery() {
                 </div>
               </div>
 
-              {/* Desktop Era Toggle */}
-              <div className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+              {/* Toggle Switch */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
                 <div className="relative flex rounded-full border border-white/20 bg-black/80 p-1.5 backdrop-blur-xl shadow-2xl">
                   <motion.div
                     layout
-                    initial={false}
-                    animate={{
-                      x: showPast ? "100%" : "0%",
-                    }}
+                    animate={{ x: showPast ? "100%" : "0%" }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     className="absolute top-1.5 bottom-1.5 w-[calc(50%-0.375rem)] rounded-full bg-white"
                   />
-
                   <button
                     onClick={() => setShowPast(false)}
-                    className={`relative z-10 min-w-[140px] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
+                    className={`relative z-10 min-w-[100px] sm:min-w-[140px] px-6 sm:px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
                       !showPast
                         ? "text-black"
                         : "text-white/60 hover:text-white"
@@ -135,49 +131,15 @@ export default function TemporalGallery() {
                   >
                     Present
                   </button>
-
                   <button
                     onClick={() => setShowPast(true)}
-                    className={`relative z-10 min-w-[140px] px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
+                    className={`relative z-10 min-w-[100px] sm:min-w-[140px] px-6 sm:px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
                       showPast ? "text-black" : "text-white/60 hover:text-white"
                     }`}
                   >
                     Past
                   </button>
                 </div>
-              </div>
-            </div>
-
-            {/* Mobile Era Toggle */}
-            <div className="sm:hidden mt-4 flex justify-center">
-              <div className="relative flex w-full max-w-xs rounded-full border border-white/20 bg-black/80 p-1.5 backdrop-blur-xl shadow-2xl">
-                <motion.div
-                  layout
-                  initial={false}
-                  animate={{
-                    x: showPast ? "100%" : "0%",
-                  }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  className="absolute top-1.5 bottom-1.5 w-[calc(50%-0.375rem)] rounded-full bg-white"
-                />
-
-                <button
-                  onClick={() => setShowPast(false)}
-                  className={`relative z-10 flex-1 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
-                    !showPast ? "text-black" : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  Present
-                </button>
-
-                <button
-                  onClick={() => setShowPast(true)}
-                  className={`relative z-10 flex-1 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors duration-300 ${
-                    showPast ? "text-black" : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  Past
-                </button>
               </div>
             </div>
           </div>
@@ -188,10 +150,10 @@ export default function TemporalGallery() {
               <div className="flex items-center gap-2 text-h-gold font-medium text-sm">
                 <MapPin size={16} /> {activeLoc.coords}
               </div>
-              <h3 className="text-4xl font-heritage text-white">
+              <h3 className="text-4xl font-heritage text-slate-900 dark:text-white">
                 {activeLoc.title}
               </h3>
-              <p className="text-h-ivory/80 leading-relaxed font-light">
+              <p className="text-slate-600 dark:text-white leading-relaxed font-light">
                 {activeLoc.description}
               </p>
             </div>
@@ -200,20 +162,20 @@ export default function TemporalGallery() {
               key={activeLoc.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-6 bg-white/[0.03] rounded-3xl border border-white/10 space-y-4 backdrop-blur-sm"
+              className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-3xl border border-slate-200 dark:border-white/10 space-y-4 backdrop-blur-sm"
             >
               <div className="flex items-center gap-3">
                 <ScrollText className="text-h-gold" size={20} />
-                <h4 className="font-bold text-white uppercase tracking-wider text-sm">
+                <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-sm">
                   Historical Context
                 </h4>
               </div>
-              <p className="text-sm text-h-ivory/60 leading-relaxed font-light">
+              <p className="text-sm text-slate-500 dark:text-white leading-relaxed font-light">
                 {activeLoc.details}
               </p>
             </motion.div>
 
-            <button className="flex items-center gap-3 px-8 py-4 bg-transparent border border-h-gold/30 rounded-full text-h-gold font-bold uppercase tracking-widest text-xs hover:bg-h-gold hover:text-h-slate transition-all duration-500 group">
+            <button className="flex items-center gap-3 px-8 py-4 bg-transparent border border-h-gold/30 rounded-full text-h-gold font-bold uppercase tracking-widest text-xs hover:bg-h-gold hover:text-white dark:hover:text-h-slate transition-all duration-500 group">
               Explore this Site
               <ChevronRight
                 size={16}
