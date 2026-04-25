@@ -97,7 +97,7 @@ export default function Header() {
             </button>
 
             <Link
-              href="/profile"
+              href="/"
               className="rounded-full bg-[#C5A059] p-2.5 text-black shadow-lg shadow-[#C5A059]/20 transition-transform hover:scale-110 active:scale-95"
             >
               <User size={18} />

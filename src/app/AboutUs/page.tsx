@@ -13,8 +13,7 @@ const TEAM = [
     role: "Lead Developer (VR)",
     module: "Dual-Scene VR Environment Creation",
     email: "it22152428@my.sliit.lk",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800",
+    image: "./sajith.jpeg",
     tags: ["Unity URP", "C#", "Meta Quest 2"],
   },
   {
@@ -24,8 +23,7 @@ const TEAM = [
     role: "Lead Developer (Character)",
     module: "Emotionally Intelligent Character & Speech",
     email: "it22311986@my.sliit.lk",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
+    image: "./rashmika.jpeg",
     tags: ["Blender", "MotionX", "Fish Speech TTS"],
   },
   {
@@ -35,8 +33,7 @@ const TEAM = [
     role: "Lead Developer (Geo Engine)",
     module: "Geo-Temporal Personalization & RAG Reporting",
     email: "it22002310@my.sliit.lk",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
+    image: "./vinujicropped.jpeg",
     tags: ["Python", "Scikit-learn", "GPS APIs"],
   },
   {
@@ -46,8 +43,7 @@ const TEAM = [
     role: "Lead Developer (AI/NLP)",
     module: "AI-Powered Conversational System",
     email: "it22080394@my.sliit.lk",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800",
+    image: "./disara.jpeg",
     tags: ["TinyLlama", "Mistral-7B", "ChromaDB"],
   },
 ];

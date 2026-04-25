@@ -3,6 +3,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import Link from "next/link";
 
 export default function Hero() {
   const container = useRef<HTMLDivElement>(null);
@@ -97,12 +98,18 @@ export default function Hero() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-            <button className="px-10 py-5 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-full transition-all hover:scale-105 hover:bg-white shadow-[0_0_30px_rgba(197,160,89,0.3)]">
+            <Link
+              href="/Domain"
+              className="px-10 py-5 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-full transition-all hover:scale-105 hover:bg-white shadow-[0_0_30px_rgba(197,160,89,0.3)]"
+            >
               Begin Your Journey
-            </button>
-            <button className="px-10 py-5 border border-white/20 text-white font-bold uppercase tracking-widest text-xs rounded-full backdrop-blur-md hover:bg-white/10 transition-all">
+            </Link>
+            <Link
+              href="/Milestones"
+              className="px-10 py-5 border border-white/20 text-white font-bold uppercase tracking-widest text-xs rounded-full backdrop-blur-md hover:bg-white/10 transition-all"
+            >
               Watch the Experience
-            </button>
+            </Link>
           </div>
         </div>
 

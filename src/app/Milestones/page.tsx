@@ -17,8 +17,7 @@ const MILESTONES = [
   {
     id: 1,
     title: "Project Proposal",
-    date: "March 2025",
-    marks: "10%",
+    date: "Sept 2025",
     description:
       "Initial documentation and presentation defining the project scope, objectives, research gaps, and methodology.",
     icon: FileText,
@@ -26,8 +25,7 @@ const MILESTONES = [
   {
     id: 2,
     title: "Progress Presentation-1",
-    date: "June 2025",
-    marks: "15%",
+    date: "January 2026",
     description:
       "First major review of the project's progress, focusing on UI/UX design, initial environment modeling, and early AI integration.",
     icon: Presentation,
@@ -35,8 +33,7 @@ const MILESTONES = [
   {
     id: 3,
     title: "Progress Presentation-2",
-    date: "September 2025",
-    marks: "15%",
+    date: "March 2026",
     description:
       "Second review showcasing core functionalities, spatial synchronization, and seamless transitions between modern and historical VR scenes.",
     icon: TrendingUp,
@@ -44,8 +41,7 @@ const MILESTONES = [
   {
     id: 4,
     title: "Final Assessment",
-    date: "November 2025",
-    marks: "40%",
+    date: "May 2026",
     description:
       "Comprehensive evaluation of the final product, including the completed dual-scene VR pipelines and final thesis document.",
     icon: Flag,
@@ -53,8 +49,7 @@ const MILESTONES = [
   {
     id: 5,
     title: "Viva",
-    date: "December 2025",
-    marks: "20%",
+    date: "May 2026",
     description:
       "Final oral examination and project defense evaluating individual contributions and technical understanding.",
     icon: Award,
@@ -157,9 +152,6 @@ export default function Milestones() {
                       <div className="flex items-center gap-4 border-t border-white/10 pt-4">
                         <div className="flex items-center gap-2 text-[#C5A059] text-xs font-bold uppercase">
                           <Calendar size={14} /> {milestone.date}
-                        </div>
-                        <div className="flex items-center gap-2 text-[#C5A059] text-xs font-bold uppercase">
-                          <Percent size={14} /> {milestone.marks}
                         </div>
                       </div>
                     </div>

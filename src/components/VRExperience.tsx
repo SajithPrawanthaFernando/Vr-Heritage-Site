@@ -44,6 +44,7 @@ export default function VRExperience() {
     <section
       ref={container}
       className="py-24 bg-[#0a0a0a] text-white overflow-hidden relative"
+      id="vr-experience"
     >
       {/* Background Accent */}
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#C5A059]/5 rounded-full blur-[120px] pointer-events-none" />

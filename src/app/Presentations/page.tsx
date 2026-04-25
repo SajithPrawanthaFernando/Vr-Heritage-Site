@@ -10,7 +10,7 @@ const PRESENTATIONS = [
   {
     id: "proposal",
     title: "Proposal Presentation",
-    date: "April 2025",
+    date: "November 2025",
     description:
       "Initial pitch outlining the dual-scene VR pipeline, AI integration, and overall project feasibility for Sri Lankan heritage tourism.",
     status: "Available",
@@ -21,7 +21,7 @@ const PRESENTATIONS = [
   {
     id: "progress-1",
     title: "Progress Presentation - 1",
-    date: "July 2025",
+    date: "January 2026",
     description:
       "Showcase of early UI/UX designs, the foundational 3D models for Dalada Maligawa and Galle Fort, and the system architecture.",
     status: "Available",
@@ -32,7 +32,7 @@ const PRESENTATIONS = [
   {
     id: "progress-2",
     title: "Progress Presentation - 2",
-    date: "October 2025",
+    date: "March 2026",
     description:
       "Demonstration of core functionalities, including the GeoSync spatial synchronization and the Meta Quest 2 deployment testing.",
     status: "Available",
@@ -43,12 +43,12 @@ const PRESENTATIONS = [
   {
     id: "final",
     title: "Final Presentation",
-    date: "January 2026",
+    date: "May 2026",
     description:
       "Comprehensive project defense, presenting the fully integrated VR application, performance metrics, and User Acceptance Testing results.",
     status: "Available",
     image:
-      "https://images.unsplash.com/photo-1475721025870-071ae672206b?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
     href: "https://docs.google.com/presentation/d/1X9v5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z/edit?usp=sharing&ouid=105922960506005686013&rtpof=true&sd=true",
   },
 ];

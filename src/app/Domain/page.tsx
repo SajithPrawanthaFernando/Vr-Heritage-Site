@@ -12,6 +12,7 @@ import {
   Milestone,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { DOMAIN_CONTENT } from "@/src/lib/domainData";
 
 const DOMAIN_TABS = [
   { id: "lit-survey", label: "Literature Survey", icon: BookOpen },
@@ -20,11 +21,13 @@ const DOMAIN_TABS = [
   { id: "objectives", label: "Objectives", icon: Milestone },
   { id: "methodology", label: "Methodology", icon: Lightbulb },
   { id: "technologies", label: "Technologies Used", icon: Cpu },
-];
+] as const;
+
+type DomainTabId = (typeof DOMAIN_TABS)[number]["id"];
 
 export default function DomainSection() {
   const container = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState(DOMAIN_TABS[0].id);
+  const [activeTab, setActiveTab] = useState<DomainTabId>(DOMAIN_TABS[0].id);
 
   useGSAP(
     () => {
@@ -32,7 +35,7 @@ export default function DomainSection() {
 
       gsap.from(".domain-header", {
         scrollTrigger: {
-          trigger: ".domain-header", // Specific trigger
+          trigger: ".domain-header",
           start: "top 90%",
         },
         y: 40,
@@ -50,7 +53,6 @@ export default function DomainSection() {
       className="pb-24 pt-40 bg-[#0a0a0a] text-white overflow-hidden relative"
       id="domain"
     >
-      {/* Subtle Background Glow */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#C5A059]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -70,7 +72,6 @@ export default function DomainSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Tab Navigation */}
           <div className="lg:col-span-4 space-y-2">
             {DOMAIN_TABS.map((tab) => {
               const Icon = tab.icon;
@@ -97,7 +98,6 @@ export default function DomainSection() {
             })}
           </div>
 
-          {/* Right: Content Display */}
           <div className="lg:col-span-8">
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 min-h-[450px] relative overflow-hidden shadow-2xl">
               <AnimatePresence mode="wait">
@@ -113,81 +113,39 @@ export default function DomainSection() {
                     {DOMAIN_TABS.find((t) => t.id === activeTab)?.label}
                   </h3>
 
-                  {activeTab === "lit-survey" && (
+                  {/* Dynamic Content Rendering */}
+                  {Array.isArray(DOMAIN_CONTENT[activeTab]) ? (
+                    activeTab === "objectives" ? (
+                      <ul className="space-y-4 text-white/80 font-light">
+                        {(DOMAIN_CONTENT[activeTab] as string[]).map(
+                          (item, idx) => (
+                            <li key={idx} className="flex gap-3">
+                              <span className="text-[#C5A059] font-bold">
+                                •
+                              </span>{" "}
+                              {item}
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    ) : (
+                      <div className="flex flex-wrap gap-3">
+                        {(DOMAIN_CONTENT[activeTab] as string[]).map(
+                          (tech, idx) => (
+                            <span
+                              key={idx}
+                              className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs uppercase tracking-widest text-white/80"
+                            >
+                              {tech}
+                            </span>
+                          ),
+                        )}
+                      </div>
+                    )
+                  ) : (
                     <p className="text-white/80 font-light leading-relaxed">
-                      While VR is a powerful tool for cultural engagement, most
-                      experiences reconstruct only a single temporal state. Our
-                      survey revealed a lack of spatially consistent comparisons
-                      across different eras in virtual heritage.
+                      {DOMAIN_CONTENT[activeTab]}
                     </p>
-                  )}
-
-                  {activeTab === "research-gap" && (
-                    <p className="text-white/80 font-light leading-relaxed">
-                      Current solutions lack spatially synchronized environments
-                      engineered for standalone hardware. There is a clear
-                      absence of multi-resolution scene streaming that maintains
-                      immersion without causing cybersickness.
-                    </p>
-                  )}
-
-                  {activeTab === "problem" && (
-                    <p className="text-white/80 font-light leading-relaxed">
-                      How can we enable users to experience seamless transitions
-                      between modern-day and historical sites while ensuring
-                      sub-meter spatial accuracy and high-fidelity rendering on
-                      mobile XR chipsets?
-                    </p>
-                  )}
-
-                  {activeTab === "objectives" && (
-                    <ul className="space-y-4 text-white/80 font-light">
-                      <li className="flex gap-3">
-                        <span className="text-[#C5A059] font-bold">•</span>{" "}
-                        Develop a GeoSync engine for spatial anchoring.
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-[#C5A059] font-bold">•</span>{" "}
-                        Create emotionally intelligent 3D avatars for narration.
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-[#C5A059] font-bold">•</span>{" "}
-                        Implement an AI/NLP-driven historical context engine.
-                      </li>
-                    </ul>
-                  )}
-
-                  {activeTab === "methodology" && (
-                    <p className="text-white/80 font-light leading-relaxed">
-                      Our approach utilizes a "Dual-Scene" pipeline in Unity
-                      URP, leveraging coordinate anchoring for sub-meter
-                      accuracy and MotionX for realistic avatar interactions
-                      based on SLIIT's research standards.
-                    </p>
-                  )}
-
-                  {activeTab === "technologies" && (
-                    <div className="flex flex-wrap gap-3">
-                      {[
-                        "Unity 2022 LTS",
-                        "Meta Quest 2",
-                        "Blender",
-                        "C#",
-                        "Python",
-                        "FastAPI",
-                        "ChromaDB",
-                        "Mistral-7B",
-                        "React",
-                        "Tailwind CSS",
-                      ].map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs uppercase tracking-widest text-white/80"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   )}
                 </motion.div>
               </AnimatePresence>
