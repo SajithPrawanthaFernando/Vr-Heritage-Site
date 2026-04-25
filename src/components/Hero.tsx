@@ -12,13 +12,15 @@ export default function Hero() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
+      // Main pinning and reveal timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,
           start: "top top",
-          end: "+=200%",
-          scrub: true,
+          end: "+=150%", // Adjusted for a tighter feel
+          scrub: 1, // Smoother follow
           pin: true,
+          anticipatePin: 1,
         },
       });
 
@@ -27,10 +29,19 @@ export default function Hero() {
         ease: "none",
       })
         .to(
-          ".bg-image",
+          ".bg-image-present",
           {
-            scale: 1.05,
+            scale: 1.1,
+            filter: "blur(4px)",
             ease: "none",
+          },
+          0,
+        )
+        .to(
+          ".hero-content",
+          {
+            y: -30,
+            ease: "power1.out",
           },
           0,
         )
@@ -39,6 +50,7 @@ export default function Hero() {
           {
             opacity: 0,
             y: 20,
+            pointerEvents: "none",
           },
           0,
         );
@@ -49,34 +61,34 @@ export default function Hero() {
   return (
     <section
       ref={container}
-      className="relative h-screen w-full overflow-hidden bg-h-slate"
+      className="relative h-screen w-full overflow-hidden bg-[#0a0a0a]"
     >
-      {/* LAYER 1: The Modern World (The Present) */}
-      <div className="bg-image absolute inset-0 bg-[url('https://cdn.britannica.com/19/118219-050-8BA0B67E/Dalada-Maligava-tooth-Buddha-Sri-Lanka-Kandy.jpg')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/50" />
+      {/* LAYER 1: The Modern World (Present) */}
+      <div className="bg-image-present absolute inset-0 bg-[url('https://cdn.britannica.com/19/118219-050-8BA0B67E/Dalada-Maligava-tooth-Buddha-Sri-Lanka-Kandy.jpg')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* LAYER 2: The Golden Age (The Past - Revealed via Scroll) */}
+      {/* LAYER 2: The Golden Age (Past - Revealed via Scroll) */}
       <div
         ref={revealRef}
-        className="bg-image absolute inset-0 z-10 bg-[url('https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg')] bg-cover bg-center"
+        className="absolute inset-0 z-10 bg-[url('https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg')] bg-cover bg-center"
         style={{ clipPath: "inset(0% 100% 0% 0%)" }}
       >
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#0a0a0a]" />
       </div>
 
-      {/* CONTENT LAYER: Focused on high-end tourism value */}
-      <div className="relative z-20 flex h-full flex-col items-center justify-center px-4">
-        <div className="max-w-5xl w-full text-center space-y-6">
-          <h1 className="font-heritage text-5xl md:text-7xl lg:text-8xl text-white leading-[1.1] drop-shadow-2xl">
+      {/* CONTENT LAYER */}
+      <div className="hero-content relative z-20 flex h-full flex-col items-center justify-center px-4">
+        <div className="max-w-5xl w-full text-center space-y-8">
+          <h1 className="font-heritage text-5xl md:text-7xl lg:text-8xl text-white leading-[0.9] tracking-tighter drop-shadow-2xl">
             Don't Just Visit.
             <br />
-            <span className="italic text-h-gold">Travel Through Time.</span>
+            <span className="italic text-[#C5A059]">Travel Through Time.</span>
           </h1>
 
-          <div className="mx-auto max-w-2xl p-4 rounded-xl border border-white/10 backdrop-blur-[2px]">
-            <p className="text-base md:text-lg font-light text-white leading-relaxed">
+          <div className="mx-auto max-w-2xl p-6 rounded-2xl">
+            <p className="text-base md:text-lg font-light text-white/90 leading-relaxed">
               Step into the island's legends exactly where they unfolded. Our
               intelligent VR platform transforms your surroundings, bringing
               forgotten eras to life through immersive, location-aware
@@ -84,31 +96,31 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <button className="px-8 py-4 bg-h-gold text-white font-bold rounded-full transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
+            <button className="px-10 py-5 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-full transition-all hover:scale-105 hover:bg-white shadow-[0_0_30px_rgba(197,160,89,0.3)]">
               Begin Your Journey
             </button>
-            <button className="px-8 py-4 border border-white/60 text-white font-semibold rounded-full backdrop-blur-md hover:bg-white/10 transition-all">
+            <button className="px-10 py-5 border border-white/20 text-white font-bold uppercase tracking-widest text-xs rounded-full backdrop-blur-md hover:bg-white/10 transition-all">
               Watch the Experience
             </button>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div className="scroll-hint absolute bottom-8 flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white font-bold">
+        <div className="scroll-hint absolute bottom-0 flex flex-col items-center gap-4">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-white/60 font-bold">
             Scroll to Unveil the Past
           </span>
-          <div className="h-12 w-[1px] bg-gradient-to-b from-h-gold to-transparent" />
+          <div className="h-16 w-[1px] bg-gradient-to-b from-[#C5A059] to-transparent" />
         </div>
       </div>
 
-      {/* Subtle UI Accents: Real-time Location Intelligence */}
-      <div className="absolute bottom-6 left-8 z-30 hidden lg:block">
-        <div className="flex items-center gap-3 text-white/60">
-          <div className="w-2 h-2 rounded-full bg-h-gold animate-pulse shadow-[0_0_8px_rgba(197,160,89,1)]" />
-          <p className="text-[10px] uppercase tracking-[0.2em] font-medium">
-            Active GPS Tracking: 6.0331° N, 80.2149° E
+      {/* Location Intelligence UI */}
+      <div className="absolute bottom-8 left-10 z-30 hidden lg:block">
+        <div className="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-black/20 backdrop-blur-sm">
+          <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse shadow-[0_0_10px_#C5A059]" />
+          <p className="text-[9px] uppercase tracking-[0.3em] font-bold text-white/70">
+            GeoSync Active: 6.0331° N, 80.2149° E
           </p>
         </div>
       </div>

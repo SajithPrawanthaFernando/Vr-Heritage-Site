@@ -25,7 +25,7 @@ const LOCATIONS = [
     description:
       "Witness the evolution of the Dutch fortifications from modern ruins to a bustling 17th-century colonial hub.",
     details:
-      "A UNESCO World Heritage site, the fort's past era reconstruction highlights the original Dutch gate architecture and the massive bastions before the modern urban developments altered the skyline.",
+      "A UNESCO World Heritage site, the fort's past era reconstruction highlights the original Dutch gate architecture and the massive bastions before modern urban developments altered the skyline.",
   },
 ];
 
@@ -35,24 +35,25 @@ export default function TemporalGallery() {
 
   return (
     <section
-      className="py-24 bg-white dark:bg-[#0a0a0a] transition-colors duration-300 overflow-hidden"
+      className="py-24 bg-[#0a0a0a] transition-colors duration-300 overflow-hidden relative"
       id="vr-experience"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-6">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-8">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 text-h-gold font-bold uppercase tracking-widest text-sm mb-4">
+            <div className="flex items-center gap-3 text-[#C5A059] font-bold uppercase tracking-[0.2em] text-xs mb-4">
               <History size={16} />
               Temporal Comparison
             </div>
-            <h2 className="text-4xl md:text-5xl font-heritage leading-tight text-slate-900 dark:text-white">
-              One World. <span className="italic text-h-gold">Two Eras.</span>
+            <h2 className="text-4xl md:text-5xl font-heritage leading-tight text-white">
+              One World.{" "}
+              <span className="italic text-[#C5A059]">Two Eras.</span>
             </h2>
           </div>
 
           {/* Location Switcher */}
-          <div className="flex gap-4 p-2 bg-black dark:bg-white/5 rounded-full border border-slate-200 dark:border-white/10 backdrop-blur-sm">
+          <div className="flex gap-2 p-1.5 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
             {LOCATIONS.map((loc) => (
               <button
                 key={loc.id}
@@ -60,16 +61,16 @@ export default function TemporalGallery() {
                   setActiveLoc(loc);
                   setShowPast(false);
                 }}
-                className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 relative ${
+                className={`px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 relative ${
                   activeLoc.id === loc.id
-                    ? "text-white dark:text-h-slate"
-                    : "text-slate-500 dark:text-white/60 hover:text-h-gold"
+                    ? "text-black"
+                    : "text-white/60 hover:text-[#C5A059]"
                 }`}
               >
                 {activeLoc.id === loc.id && (
                   <motion.div
                     layoutId="activeLocBg"
-                    className="absolute inset-0 bg-h-gold rounded-full -z-10 shadow-lg"
+                    className="absolute inset-0 bg-[#C5A059] rounded-full -z-10 shadow-[0_0_20px_rgba(197,160,89,0.3)]"
                   />
                 )}
                 {loc.title}
@@ -79,32 +80,34 @@ export default function TemporalGallery() {
         </div>
 
         {/* Comparison Display */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-8 relative group">
-            <div className="relative aspect-video rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl bg-black">
+            <div className="relative aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-black">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={`${activeLoc.id}-${showPast}`}
                   src={
                     showPast ? activeLoc.pastImg.src : activeLoc.presentImg.src
                   }
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, filter: "blur(10px)" }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                   className="w-full h-full object-cover"
                 />
               </AnimatePresence>
 
               {/* Status Indicator */}
-              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+              <div className="absolute top-6 left-6 z-10">
                 <div className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 flex items-center gap-2">
                   <div
                     className={`w-2 h-2 rounded-full ${
-                      showPast ? "bg-h-gold animate-pulse" : "bg-blue-400"
+                      showPast
+                        ? "bg-[#C5A059] animate-pulse shadow-[0_0_8px_#C5A059]"
+                        : "bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]"
                     }`}
                   />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">
                     {showPast
                       ? "Historical Reconstruction"
                       : "Modern Environment"}
@@ -113,28 +116,31 @@ export default function TemporalGallery() {
               </div>
 
               {/* Toggle Switch */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-                <div className="relative flex rounded-full border border-white/20 bg-black/80 p-1.5 backdrop-blur-xl shadow-2xl">
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
+                <div className="relative flex rounded-full border border-white/10 bg-black/80 p-1.5 backdrop-blur-xl shadow-2xl">
                   <motion.div
                     layout
-                    animate={{ x: showPast ? "100%" : "0%" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="absolute top-1.5 bottom-1.5 w-[calc(50%-0.375rem)] rounded-full bg-white"
+                    transition={{ type: "spring", stiffness: 400, damping: 40 }}
+                    className={`absolute top-1.5 bottom-1.5 w-[calc(50%-0.375rem)] rounded-full ${
+                      showPast
+                        ? "left-[calc(50%+0.1875rem)] bg-[#C5A059]"
+                        : "left-1.5 bg-white"
+                    }`}
                   />
                   <button
                     onClick={() => setShowPast(false)}
-                    className={`relative z-10 min-w-[100px] sm:min-w-[140px] px-6 sm:px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
+                    className={`relative z-10 min-w-[120px] px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-colors ${
                       !showPast
                         ? "text-black"
-                        : "text-white/60 hover:text-white"
+                        : "text-white/50 hover:text-white"
                     }`}
                   >
                     Present
                   </button>
                   <button
                     onClick={() => setShowPast(true)}
-                    className={`relative z-10 min-w-[100px] sm:min-w-[140px] px-6 sm:px-10 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-colors ${
-                      showPast ? "text-black" : "text-white/60 hover:text-white"
+                    className={`relative z-10 min-w-[120px] px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-colors ${
+                      showPast ? "text-black" : "text-white/50 hover:text-white"
                     }`}
                   >
                     Past
@@ -145,37 +151,37 @@ export default function TemporalGallery() {
           </div>
 
           {/* Context Sidebar */}
-          <div className="lg:col-span-4 space-y-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-h-gold font-medium text-sm">
+          <div className="lg:col-span-4 space-y-10">
+            <div className="space-y-6">
+              <div className="flex items-center gap-2 text-[#C5A059] font-bold tracking-widest text-[10px] uppercase">
                 <MapPin size={16} /> {activeLoc.coords}
               </div>
-              <h3 className="text-4xl font-heritage text-slate-900 dark:text-white">
+              <h3 className="text-4xl font-heritage text-white">
                 {activeLoc.title}
               </h3>
-              <p className="text-slate-600 dark:text-white leading-relaxed font-light">
+              <p className="text-white/70 leading-relaxed font-light text-lg">
                 {activeLoc.description}
               </p>
             </div>
 
             <motion.div
               key={activeLoc.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-3xl border border-slate-200 dark:border-white/10 space-y-4 backdrop-blur-sm"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="p-8 bg-white/[0.03] rounded-[2rem] border border-white/10 space-y-5 backdrop-blur-sm shadow-xl"
             >
               <div className="flex items-center gap-3">
-                <ScrollText className="text-h-gold" size={20} />
-                <h4 className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-sm">
+                <ScrollText className="text-[#C5A059]" size={20} />
+                <h4 className="font-bold text-white uppercase tracking-[0.1em] text-xs">
                   Historical Context
                 </h4>
               </div>
-              <p className="text-sm text-slate-500 dark:text-white leading-relaxed font-light">
-                {activeLoc.details}
+              <p className="text-sm text-white/60 leading-relaxed font-light italic">
+                "{activeLoc.details}"
               </p>
             </motion.div>
 
-            <button className="flex items-center gap-3 px-8 py-4 bg-transparent border border-h-gold/30 rounded-full text-h-gold font-bold uppercase tracking-widest text-xs hover:bg-h-gold hover:text-white dark:hover:text-h-slate transition-all duration-500 group">
+            <button className="flex items-center gap-3 px-10 py-5 bg-transparent border border-[#C5A059]/30 rounded-full text-[#C5A059] font-bold uppercase tracking-widest text-[10px] hover:bg-[#C5A059] hover:text-black transition-all duration-500 group shadow-lg shadow-[#C5A059]/5">
               Explore this Site
               <ChevronRight
                 size={16}

@@ -1,5 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -8,46 +10,41 @@ import { Menu, X, Globe, User } from "lucide-react";
 export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      // Clean up previous triggers on route change
+      ScrollTrigger.getAll().forEach((t) => t.kill());
 
       gsap.to(headerRef.current, {
-        backgroundColor: "rgba(0, 0, 0, 0.85)",
+        backgroundColor: "rgba(10, 10, 10, 0.9)", // Matches #0a0a0a
         backdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(197, 160, 89, 0.3)",
+        borderBottom: "1px solid rgba(197, 160, 89, 0.2)", // Subtle gold border
         paddingTop: "0.75rem",
         paddingBottom: "0.75rem",
         scrollTrigger: {
           trigger: "body",
-          start: "top -1250",
+          // Deep scroll for Home, immediate for subpages
+          start: pathname === "/" ? "top -1250" : "top -50",
           toggleActions: "play none none reverse",
         },
       });
     },
-    { scope: headerRef },
+    {
+      scope: headerRef,
+      dependencies: [pathname],
+    },
   );
 
-  const handleScroll = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const headerOffset = headerRef.current?.offsetHeight || 80;
-    const elementPosition = el.getBoundingClientRect().top + window.scrollY;
-    const offsetPosition = elementPosition - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-  };
-
   const navItems = [
-    "Exploration",
-    "VR Experience",
-    "Living Legends",
-    "Souvenirs",
+    { label: "Home", href: "/" },
+    { label: "Domain", href: "/Domain" },
+    { label: "Milestones", href: "/Milestones" },
+    { label: "Documents", href: "/Documents" },
+    { label: "Presentations", href: "/Presentations" },
+    { label: "About Us", href: "/AboutUs" },
   ];
 
   return (
@@ -59,42 +56,55 @@ export default function Header() {
         <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4">
           {/* Branding */}
           <div className="shrink-0">
-            <span className="block font-heritage text-lg leading-none tracking-tight text-white sm:text-xl">
+            <Link
+              href="/"
+              className="block font-heritage text-lg leading-none tracking-tight text-white sm:text-xl hover:text-[#C5A059] transition-colors"
+            >
               HERITAGE
-            </span>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center gap-8 2xl:gap-10 whitespace-nowrap">
             {navItems.map((item) => {
-              const id = item.toLowerCase().replace(/\s+/g, "-");
-
+              const isActive = pathname === item.href;
               return (
-                <button
-                  key={item}
-                  onClick={() => handleScroll(id)}
-                  className="relative text-xs font-bold uppercase tracking-widest text-white/90 transition-colors hover:text-h-gold"
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`group relative text-[10px] font-bold uppercase tracking-[0.2em] transition-colors ${
+                    isActive
+                      ? "text-[#C5A059]"
+                      : "text-white/80 hover:text-[#C5A059]"
+                  }`}
                 >
-                  {item}
-                  <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-h-gold transition-all duration-300 group-hover:w-full" />
-                </button>
+                  {item.label}
+                  <span
+                    className={`absolute left-0 -bottom-1 h-[1px] bg-[#C5A059] transition-all duration-300 group-hover:w-full ${
+                      isActive ? "w-full" : "w-0"
+                    }`}
+                  />
+                </Link>
               );
             })}
           </nav>
 
           {/* Action Buttons */}
           <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-4">
-            <button className="hidden md:flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition-all hover:border-white/40 hover:bg-white/10 lg:px-5 lg:py-2.5">
+            <button className="hidden md:flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:border-[#C5A059]/40 hover:bg-white/5 lg:px-5 lg:py-2.5">
               <Globe size={14} />
               EN
             </button>
 
-            <button className="rounded-full bg-h-gold p-2.5 text-white shadow-lg shadow-h-gold/20 transition-transform hover:scale-110">
+            <Link
+              href="/profile"
+              className="rounded-full bg-[#C5A059] p-2.5 text-black shadow-lg shadow-[#C5A059]/20 transition-transform hover:scale-110 active:scale-95"
+            >
               <User size={18} />
-            </button>
+            </Link>
 
             <button
-              className="xl:hidden p-2 text-white"
+              className="xl:hidden p-2 text-white hover:text-[#C5A059] transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -106,26 +116,24 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 flex xl:hidden flex-col items-center justify-center gap-8 bg-black/95 transition-transform duration-500 ${
-          isMenuOpen ? "translate-y-0" : "-translate-y-full"
+        className={`fixed inset-0 z-40 flex xl:hidden flex-col items-center justify-center gap-8 bg-[#0a0a0a]/98 backdrop-blur-lg transition-all duration-500 ${
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        {navItems.map((item) => {
-          const id = item.toLowerCase().replace(/\s+/g, "-");
-
-          return (
-            <button
-              key={item}
-              onClick={() => {
-                handleScroll(id);
-                setIsMenuOpen(false);
-              }}
-              className="text-2xl font-heritage text-white transition-colors hover:text-h-gold"
-            >
-              {item}
-            </button>
-          );
-        })}
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={() => setIsMenuOpen(false)}
+            className={`text-2xl font-heritage tracking-widest transition-colors ${
+              pathname === item.href
+                ? "text-[#C5A059]"
+                : "text-white hover:text-[#C5A059]"
+            }`}
+          >
+            {item.label}
+          </Link>
+        ))}
       </div>
     </>
   );

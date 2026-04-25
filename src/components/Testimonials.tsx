@@ -1,12 +1,9 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { Quote, Star, CheckCircle } from "lucide-react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { Quote, Star, CheckCircle, Award } from "lucide-react";
 
 const REVIEWS = [
   {
@@ -38,77 +35,83 @@ const REVIEWS = [
 export default function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set(".testimonial-card", { opacity: 0, y: 50 });
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-      ScrollTrigger.batch(".testimonial-card", {
-        onEnter: (batch) =>
-          gsap.to(batch, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.2,
-            duration: 1,
-            ease: "power3.out",
-            overwrite: true,
-          }),
-        start: "top 85%",
+      // Staggered entry for cards
+      gsap.from(".testimonial-card", {
+        scrollTrigger: {
+          trigger: ".testimonial-grid",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+        y: 40,
+        opacity: 1,
+        stagger: 0.2,
+        duration: 1,
+        ease: "power2.out",
       });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+    { scope: containerRef },
+  );
 
   return (
     <section
       ref={containerRef}
-      className="py-24 bg-[#F9F6F0] text-[#2C2C2C] relative overflow-hidden"
+      className="py-24 bg-[#0a0a0a] text-white relative overflow-hidden"
       id="souvenirs"
     >
-      <div className="container mx-auto px-6">
+      {/* Background Accent */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C5A059]/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="flex justify-center gap-1 text-[#C5A059] mb-4">
+        <div className="text-center max-w-2xl mx-auto mb-20 space-y-6">
+          <div className="flex justify-center gap-1 text-[#C5A059]">
             {[...Array(5)].map((_, i) => (
               <Star key={i} size={16} fill="currentColor" />
             ))}
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif mb-6">
+          <h2 className="text-4xl md:text-6xl font-heritage leading-tight">
             Trusted by{" "}
-            <span className="text-[#C5A059]">Explorers & Experts</span>
+            <span className="italic text-[#C5A059]">Explorers & Experts.</span>
           </h2>
-          <p className="opacity-70">
+          <p className="text-white/60 font-light leading-relaxed">
             Join thousands of travelers who have already stepped into the past
             through our immersive time-travel platform.
           </p>
         </div>
 
         {/* Grid of Reviews */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="testimonial-grid grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {REVIEWS.map((review, i) => (
             <div
               key={i}
-              className="testimonial-card bg-white p-8 rounded-[2rem] shadow-xl border border-[#C5A059]/10 flex flex-col justify-between hover:shadow-2xl transition-shadow duration-500"
+              className="testimonial-card bg-white/[0.03] p-10 rounded-[2.5rem] border border-white/10 flex flex-col justify-between hover:border-[#C5A059]/30 transition-all duration-500 group shadow-2xl backdrop-blur-md"
             >
-              <div>
-                <Quote className="text-[#C5A059]/20 mb-6" size={40} />
-                <p className="text-[#2C2C2C]/80 italic leading-relaxed mb-8">
+              <div className="relative">
+                <Quote
+                  className="text-[#C5A059] opacity-20 group-hover:opacity-40 transition-opacity mb-6"
+                  size={40}
+                />
+                <p className="text-white/80 italic font-light leading-relaxed mb-10 text-lg">
                   "{review.content}"
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 border-t border-gray-100 pt-6">
+              <div className="flex items-center gap-4 border-t border-white/10 pt-8">
                 <img
                   src={review.avatar}
                   alt={review.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-[#C5A059]/20"
+                  className="w-14 h-14 rounded-full object-cover border-2 border-[#C5A059]/20 group-hover:border-[#C5A059]/50 transition-colors"
                 />
                 <div>
-                  <h4 className="font-bold text-sm text-[#2C2C2C] flex items-center gap-1">
+                  <h4 className="font-bold text-sm text-white flex items-center gap-1 uppercase tracking-wider">
                     {review.name}
-                    <CheckCircle size={12} className="text-blue-500 ml-1" />
+                    <CheckCircle size={14} className="text-blue-400 ml-1" />
                   </h4>
-                  <p className="text-[10px] uppercase tracking-widest opacity-50">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold mt-1">
                     {review.role}
                   </p>
                 </div>
@@ -117,17 +120,26 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Commercial Trust Bar - Academic references removed */}
-        <div className="mt-20 pt-12 border-t border-[#C5A059]/20 flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-          <span className="font-serif text-lg md:text-xl font-bold">
-            GLOBAL TRAVEL COUNCIL
-          </span>
-          <span className="font-serif text-lg md:text-xl font-bold">
-            HOSPITALITY TECH
-          </span>
-          <span className="font-serif text-lg md:text-xl font-bold">
-            SRI LANKA TOURISM
-          </span>
+        {/* Commercial Trust Bar */}
+        <div className="mt-20 pt-16 border-t border-white/5 flex flex-wrap justify-center items-center gap-8 md:gap-20 opacity-30 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-700">
+          <div className="flex items-center gap-3">
+            <Award size={20} className="text-[#C5A059]" />
+            <span className="font-heritage text-lg uppercase tracking-widest">
+              Global Travel Council
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Award size={20} className="text-[#C5A059]" />
+            <span className="font-heritage text-lg uppercase tracking-widest">
+              Hospitality Tech
+            </span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Award size={20} className="text-[#C5A059]" />
+            <span className="font-heritage text-lg uppercase tracking-widest">
+              Sri Lanka Tourism
+            </span>
+          </div>
         </div>
       </div>
     </section>
