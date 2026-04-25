@@ -49,7 +49,6 @@ export default function SessionReporting() {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* Left: Persuasive Messaging */}
           <div className="space-y-8 content-reveal">
             <div className="flex items-center gap-3 text-[#C5A059] font-bold uppercase tracking-[0.2em] text-xs">
               <FileText size={18} />
@@ -108,7 +107,6 @@ export default function SessionReporting() {
             </button>
           </div>
 
-          {/* Right: The "Digital Report" UI Mockup */}
           <div className="report-preview relative flex justify-center lg:justify-end">
             <div className="bg-white/[0.03] backdrop-blur-xl rounded-[2.5rem] p-10 text-white border border-white/10 shadow-2xl transform lg:rotate-2 transition-all hover:rotate-0 hover:scale-[1.02] duration-700 max-w-md">
               <div className="flex justify-between items-start mb-10 border-b pb-6 border-white/10">
@@ -158,7 +156,6 @@ export default function SessionReporting() {
               </div>
             </div>
 
-            {/* Abstract "Timeline" decoration */}
             <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[1px] bg-[#C5A059]/10 rotate-[15deg] pointer-events-none" />
           </div>
         </div>

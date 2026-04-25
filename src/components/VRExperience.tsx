@@ -13,7 +13,6 @@ export default function VRExperience() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Subtle float animation for the main visual
       gsap.to(".vr-image-container", {
         y: -15,
         duration: 3,

@@ -12,7 +12,6 @@ export default function CustomCharacters() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // 1. Animate the left-side text content
       gsap.from(".content-reveal", {
         scrollTrigger: {
           trigger: container.current,
@@ -26,7 +25,6 @@ export default function CustomCharacters() {
         ease: "power3.out",
       });
 
-      // 2. Animate the character cards (Right side)
       gsap.from(".char-card", {
         scrollTrigger: {
           trigger: ".char-grid",
@@ -54,7 +52,6 @@ export default function CustomCharacters() {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* Left: Persuasive Messaging (Added .content-reveal) */}
           <div className="space-y-10 content-reveal">
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-[#C5A059] font-bold uppercase tracking-[0.3em] text-xs">
@@ -104,9 +101,7 @@ export default function CustomCharacters() {
             </div>
           </div>
 
-          {/* Right: Interactive Character Cards */}
           <div className=" grid grid-cols-1 sm:grid-cols-2 gap-8">
-            {/* Added .char-card to the card wrappers */}
             <div className=" bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-6 hover:border-[#C5A059]/50 transition-all duration-500 group shadow-2xl">
               <div className="aspect-[3/4] rounded-[1.8rem] overflow-hidden mb-6 relative bg-black">
                 <video

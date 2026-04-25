@@ -15,18 +15,16 @@ export default function Header() {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
-      // Clean up previous triggers on route change
       ScrollTrigger.getAll().forEach((t) => t.kill());
 
       gsap.to(headerRef.current, {
-        backgroundColor: "rgba(10, 10, 10, 0.9)", // Matches #0a0a0a
+        backgroundColor: "rgba(10, 10, 10, 0.9)",
         backdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(197, 160, 89, 0.2)", // Subtle gold border
+        borderBottom: "1px solid rgba(197, 160, 89, 0.2)",
         paddingTop: "0.75rem",
         paddingBottom: "0.75rem",
         scrollTrigger: {
           trigger: "body",
-          // Deep scroll for Home, immediate for subpages
           start: pathname === "/" ? "top -1250" : "top -50",
           toggleActions: "play none none reverse",
         },

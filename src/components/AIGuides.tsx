@@ -18,7 +18,6 @@ export default function AIGuides() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Fade in elements with an "ethereal" feel
       gsap.from(".guide-animate", {
         scrollTrigger: {
           trigger: container.current,
@@ -31,7 +30,6 @@ export default function AIGuides() {
         ease: "power3.out",
       });
 
-      // Animate the floating "AI Pulse" behind the character
       gsap.to(".glow-effect", {
         opacity: 0.4,
         scale: 1.3,

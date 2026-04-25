@@ -39,7 +39,6 @@ export default function Testimonials() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Staggered entry for cards
       gsap.from(".testimonial-card", {
         scrollTrigger: {
           trigger: ".testimonial-grid",

@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// Document data with corrected individual descriptions and dynamic links
 const DOCUMENTS = [
   {
     id: "charter",
@@ -248,7 +247,7 @@ export default function Documents() {
                   <Link
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={isAvailable ? doc.href : "#"} // CHANGED: Now uses doc.href instead of a hardcoded string
+                    href={isAvailable ? doc.href : "#"}
                     className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
                       isAvailable
                         ? "bg-[#C5A059] text-black hover:bg-white hover:scale-105"

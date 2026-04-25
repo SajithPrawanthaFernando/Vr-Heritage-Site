@@ -63,7 +63,6 @@ export default function Milestones() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // 1. Single animation for the line
       gsap.fromTo(
         ".timeline-line",
         { scaleY: 0 },
@@ -80,7 +79,6 @@ export default function Milestones() {
         },
       );
 
-      // 2. Animation for cards
       const nodes = gsap.utils.toArray<HTMLElement>(".timeline-node");
       nodes.forEach((node, index) => {
         const isLeft = index % 2 === 0;
@@ -120,7 +118,6 @@ export default function Milestones() {
 
         {/* Timeline Container */}
         <div className="timeline-container relative max-w-5xl mx-auto">
-          {/* THE LINE: Removed 'hidden sm:block' and fixed positioning */}
           <div className="timeline-line absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#C5A059] to-transparent -translate-x-1/2 z-0" />
 
           <div className="space-y-12 md:space-y-24">

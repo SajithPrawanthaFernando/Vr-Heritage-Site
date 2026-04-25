@@ -18,8 +18,8 @@ export default function Hero() {
         scrollTrigger: {
           trigger: container.current,
           start: "top top",
-          end: "+=150%", // Adjusted for a tighter feel
-          scrub: 1, // Smoother follow
+          end: "+=150%",
+          scrub: 1,
           pin: true,
           anticipatePin: 1,
         },
@@ -64,12 +64,10 @@ export default function Hero() {
       ref={container}
       className="relative h-screen w-full overflow-hidden bg-[#0a0a0a]"
     >
-      {/* LAYER 1: The Modern World (Present) */}
       <div className="bg-image-present absolute inset-0 bg-[url('https://cdn.britannica.com/19/118219-050-8BA0B67E/Dalada-Maligava-tooth-Buddha-Sri-Lanka-Kandy.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* LAYER 2: The Golden Age (Past - Revealed via Scroll) */}
       <div
         ref={revealRef}
         className="absolute inset-0 z-10 bg-[url('https://www.archaeology.lk/wp-content/uploads/2020/11/galle_fort_sri_lanka_aerial_view_buddhika_dilshan.jpg')] bg-cover bg-center"

@@ -63,7 +63,7 @@ export default function Presentations() {
       // Fade in the section header
       gsap.from(".pres-header", {
         scrollTrigger: {
-          trigger: ".pres-header", // Trigger specifically on the header
+          trigger: ".pres-header",
           start: "top 90%",
         },
         y: 30,
@@ -75,7 +75,7 @@ export default function Presentations() {
       // Animate the presentation cards sliding up
       gsap.from(".pres-card", {
         scrollTrigger: {
-          trigger: ".pres-grid", // Trigger when the grid enters
+          trigger: ".pres-grid",
           start: "top 85%",
           toggleActions: "play none none reverse",
         },
