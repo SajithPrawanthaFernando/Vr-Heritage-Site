@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Mail, MapPin, Cpu, Send, Globe } from "lucide-react";
@@ -31,8 +31,16 @@ const TEAM_CONTACTS = [
   },
 ];
 
+// All team emails as recipients
+const TO_EMAILS = TEAM_CONTACTS.map((m) => m.email).join(";");
+
 export default function ContactPage() {
   const container = useRef<HTMLDivElement>(null);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [inquiry, setInquiry] = useState("General Inquiry");
+  const [message, setMessage] = useState("");
 
   useGSAP(
     () => {
@@ -69,6 +77,18 @@ export default function ContactPage() {
     { scope: container },
   );
 
+  const handleSend = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const subject = encodeURIComponent(`[${inquiry}] Message from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nInquiry Type: ${inquiry}\n\nMessage:\n${message}`,
+    );
+
+    // mailto with semicolon-separated recipients (Outlook supports this)
+    window.location.href = `mailto:${TO_EMAILS}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <main
       ref={container}
@@ -86,7 +106,7 @@ export default function ContactPage() {
             <span>Connect with the Team</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-heritage leading-tight">
-            Let’s Shape the{" "}
+            Let's Shape the{" "}
             <span className="italic text-[#C5A059]">Future of the Past.</span>
           </h1>
           <p className="text-white/60 font-light leading-relaxed text-lg">
@@ -145,12 +165,11 @@ export default function ContactPage() {
                       className="group p-4 bg-white/[0.02] border border-white/5 rounded-2xl hover:border-[#C5A059]/30 transition-all"
                     >
                       <div className="flex items-center gap-4">
-                        {/* Avatar Image Container */}
                         <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 group-hover:border-[#C5A059]/50 transition-colors shrink-0">
                           <img
                             src={member.image}
                             alt={member.name}
-                            className="w-full h-full object-cover "
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
@@ -175,7 +194,7 @@ export default function ContactPage() {
           {/* Right Side: Contact Form */}
           <div className="lg:col-span-7 contact-form-reveal">
             <div className="p-10 md:p-12 bg-white/[0.02] border border-white/10 rounded-[3rem] shadow-2xl backdrop-blur-xl">
-              <form className="space-y-6">
+              <form onSubmit={handleSend} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold ml-1">
@@ -183,6 +202,9 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. John Doe"
                       className="w-full px-6 py-4 bg-black/40 border border-white/10 rounded-2xl text-sm focus:outline-none focus:border-[#C5A059] transition-colors placeholder:text-white/10 text-white"
                     />
@@ -193,6 +215,9 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@company.com"
                       className="w-full px-6 py-4 bg-black/40 border border-white/10 rounded-2xl text-sm focus:outline-none focus:border-[#C5A059] transition-colors placeholder:text-white/10 text-white"
                     />
@@ -203,7 +228,11 @@ export default function ContactPage() {
                   <label className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold ml-1">
                     Inquiry Type
                   </label>
-                  <select className="w-full px-6 py-4 bg-black/40 border border-white/10 rounded-2xl text-sm focus:outline-none focus:border-[#C5A059] transition-colors text-white/60 appearance-none">
+                  <select
+                    value={inquiry}
+                    onChange={(e) => setInquiry(e.target.value)}
+                    className="w-full px-6 py-4 bg-black/40 border border-white/10 rounded-2xl text-sm focus:outline-none focus:border-[#C5A059] transition-colors text-white/60 appearance-none"
+                  >
                     <option>General Inquiry</option>
                     <option>Technical Partnership</option>
                     <option>Research Collaboration</option>
@@ -216,6 +245,9 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={5}
+                    required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder="How can we help you explore history?"
                     className="w-full px-6 py-4 bg-black/40 border border-white/10 rounded-2xl text-sm focus:outline-none focus:border-[#C5A059] transition-colors resize-none placeholder:text-white/10 text-white"
                   ></textarea>
