@@ -1,9 +1,30 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Users, Mail, GraduationCap, Cpu, Send } from "lucide-react";
+
+const SUPERVISORS = [
+  {
+    id: "dinuka",
+    name: "Dr. Dinuka Wijendra",
+    role: "Supervisor",
+    module: "Project Oversight & Research Direction",
+    email: "dinuka@sliit.lk",
+    image: "./dinuka.jpeg",
+    tags: ["Research", "AI", "XR"],
+  },
+  {
+    id: "thilini",
+    name: "Ms. Thilini Jayalath",
+    role: "Co-Supervisor",
+    module: "Technical Guidance & Mentorship",
+    email: "thilini@sliit.lk",
+    image: "./thilini.jpeg",
+    tags: ["Development", "Software", "XR"],
+  },
+];
 
 const TEAM = [
   {
@@ -50,6 +71,7 @@ const TEAM = [
 
 export default function Team() {
   const container = useRef<HTMLDivElement>(null);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   useGSAP(
     () => {
@@ -121,6 +143,71 @@ export default function Team() {
             Jayalath at SLIIT, our team combines expertise in XR, Artificial
             Intelligence, and Software Engineering.
           </p>
+        </div>
+
+        {/* Supervisors Section */}
+        <div className="mb-24">
+          <h3 className="text-2xl font-heritage text-center mb-8 text-white">
+            <span className="text-[#C5A059]">Academic</span> Supervision
+          </h3>
+          <div className="flex justify-center gap-6 max-w-2xl mx-auto">
+            {SUPERVISORS.map((supervisor) => (
+              <div
+                key={supervisor.id}
+                className="group relative bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-[1.5rem] overflow-hidden hover:border-[#C5A059]/50 transition-all duration-500 shadow-xl w-78"
+              >
+                {/* Photo Area */}
+                <div className="relative aspect-square overflow-hidden bg-white/5">
+                  <img
+                    src={supervisor.image}
+                    alt={supervisor.name}
+                    className="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+
+                  {/* Role Badge */}
+                  <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full border border-[#C5A059]/50 flex items-center gap-1">
+                    <span className="text-[8px] font-bold tracking-widest text-[#C5A059]">
+                      {supervisor.role.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 relative -mt-8">
+                  <h3 className="text-sm font-bold mb-1 text-white group-hover:text-[#C5A059] transition-colors">
+                    {supervisor.name}
+                  </h3>
+                  <p className="text-xs font-medium text-[#C5A059] mb-2">
+                    {supervisor.role}
+                  </p>
+
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {supervisor.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[7px] uppercase tracking-wider text-white/70"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Social/Contact */}
+                  <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                    <a
+                      href={`mailto:${supervisor.email}`}
+                      className="p-1.5 bg-white/5 hover:bg-[#C5A059] hover:text-black rounded-full transition-colors"
+                      title={supervisor.email}
+                    >
+                      <Mail size={12} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Team Grid */}
@@ -220,29 +307,59 @@ export default function Team() {
               </div>
             </div>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
                 placeholder="Your Name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-5 py-3 bg-black/40 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <input
                 type="email"
                 placeholder="Your Email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full px-5 py-3 bg-black/40 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-[#C5A059] transition-colors"
               />
               <textarea
                 placeholder="Your Message..."
                 rows={4}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-5 py-3 bg-black/40 border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-[#C5A059] transition-colors resize-none"
               ></textarea>
-              <button
-                type="button"
-                className="w-full py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
-              >
-                Send Message
-                <Send size={14} />
-              </button>
+
+              {/* Email Options */}
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const subject = "Heritage Tourism VR Project Inquiry";
+                    const body = `Hello,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+                    const mailtoLink = `mailto:research@sliit.lk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.location.href = mailtoLink;
+                  }}
+                  className="flex-1 py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                >
+                  <Mail size={14} />
+                  Open in Mail
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const subject = "Heritage Tourism VR Project Inquiry";
+                    const body = `Hello,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+                    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=research@sliit.lk&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(gmailLink, "_blank");
+                  }}
+                  className="flex-1 py-4 bg-[#C5A059] text-black font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-white hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                >
+                  <Send size={14} />
+                  Open in Gmail
+                </button>
+              </div>
             </form>
           </div>
         </div>
