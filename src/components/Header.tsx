@@ -43,6 +43,7 @@ export default function Header() {
     { label: "Documents", href: "/Documents" },
     { label: "Presentations", href: "/Presentations" },
     { label: "About Us", href: "/AboutUs" },
+    { label: "Contact Us", href: "/Contact" },
   ];
 
   return (
